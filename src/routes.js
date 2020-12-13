@@ -1,6 +1,10 @@
 import React from "react";
-import DummyPage from "./pages/Dummy";
+import LandingPage from "./pages/LandingPage";
+import MusicPage from "./pages/MusicPage";
 
-const routes = [{ path: "/", element: <DummyPage /> }];
+const routes = {};
+
+routes["/"] = () => <LandingPage />;
+routes["/search/:search"] = ({ search }) => <MusicPage search={search} />;
 
 export default routes;

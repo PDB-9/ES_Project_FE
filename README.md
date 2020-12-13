@@ -1,6 +1,6 @@
-# Spotipy
+# Spoti.py
 
-Repositori _git_ ini berisi kode sumber untuk aplikasi Spotipy yang dibuat oleh **Kelompok 9**. Teknologi utama yang digunakan dalam pengembangan proyek ini adalah **Elasticsearch**. Proyek ini merupakan bagian dari mata kuliah Pengelolaan Data Besar Semester Ganjil 2021/2022, Fakultas Ilmu Komputer, Universitas Indonesia.
+Repositori _git_ ini berisi kode sumber untuk aplikasi Spoti.py yang dibuat oleh **Kelompok 9**. Teknologi utama yang digunakan dalam pengembangan proyek ini adalah **Elasticsearch**. Proyek ini merupakan bagian dari mata kuliah Pengelolaan Data Besar Semester Ganjil 2021/2022, Fakultas Ilmu Komputer, Universitas Indonesia.
 
 Anggota Kelompok 9:
 
@@ -13,7 +13,7 @@ Anggota Kelompok 9:
 
 Aplikasi yang dapat mengembalikan hasil lagu berdasarkan masukan yang diberikan oleh pengguna. Form yang ada pada halaman utama aplikasi dapat diisi oleh pengguna dan aplikasi akan mengembalikan hasil pencarian berdasarkan isi dari form tersebut. Aplikasi ini memanfaatkan data lagu Spotify yang dapat ditemukan pada tautan [ini](https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks).
 
-Tujuan pengembangan dari aplikasi Spotipy, yaitu sebagai platform terpadu untuk memproses pencarian data lagu Spotify secara efektif.
+Tujuan pengembangan dari aplikasi Spoti.py, yaitu sebagai platform terpadu untuk memproses pencarian data lagu Spotify secara efektif.
 
 _Proyek_ ini menggunakan:
 
