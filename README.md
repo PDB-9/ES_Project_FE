@@ -15,7 +15,9 @@ Aplikasi yang dapat mengembalikan hasil lagu berdasarkan masukan yang diberikan 
 
 Tujuan pengembangan dari aplikasi Spoti.py, yaitu sebagai platform terpadu untuk memproses pencarian data lagu Spotify secara efektif.
 
-_Proyek_ ini menggunakan:
+_Live on_: https://spotipy.netlify.app/
+
+Proyek ini menggunakan:
 
 - Elasticsearch v7.10.0
 - yarn v1.22.0

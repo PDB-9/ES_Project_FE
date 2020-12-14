@@ -19,8 +19,14 @@ export const LandingWrapper = styled.div`
   h1 {
     color: #98ff98;
     font-size: 5rem;
-    margin-top: 0rem;
-    margin-bottom: 2rem;
+    margin: 0rem;
+  }
+
+  p {
+    margin-bottom: 3rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 `;
 
@@ -30,4 +36,35 @@ export const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+`;
+
+export const Circle1 = styled.div`
+  background-color: #98ff98;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  position: fixed;
+  top: -100px;
+  right: -100px;
+`;
+
+export const Circle2 = styled.div`
+  background-color: #98ff98;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+  position: fixed;
+  bottom: -170px;
+  left: 360px;
+`;
+
+export const Circle3 = styled.div`
+  background-image: linear-gradient(to right, #98ff98, 40%, rgba(255, 0, 0, 0));
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 150px;
+  left: 150px;
 `;
