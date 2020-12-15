@@ -102,7 +102,7 @@ const MusicPage = ({ search }) => {
                 artists={el.artists.join(", ")}
                 year={el.year}
                 duration={el.duration_ms}
-                explicit={el.duration}
+                explicit={el.explicit}
               />
             );
           })

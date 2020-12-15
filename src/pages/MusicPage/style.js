@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledMusicPage = styled.div`
   width: 100vw;
+  min-height: 100vh;
   background-image: linear-gradient(to bottom right, #000428, #004e92);
   display: flex;
   flex-direction: column;
