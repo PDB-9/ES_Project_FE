@@ -24,7 +24,7 @@ const LandingPage = () => {
   const handleSearch = () => {
     const newValidation = getNewValidation(search);
     if (!newValidation) {
-      handleActionSearch(search);
+      handleActionSearch(search, "all");
     }
 
     setValidation(newValidation);

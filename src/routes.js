@@ -5,6 +5,8 @@ import MusicPage from "./pages/MusicPage";
 const routes = {};
 
 routes["/search/"] = () => <LandingPage />;
-routes["/search/:search"] = ({ search }) => <MusicPage search={search} />;
+routes["/search/:search/:filter"] = ({ search, filter }) => (
+  <MusicPage search={search} filter={filter} />
+);
 
 export default routes;

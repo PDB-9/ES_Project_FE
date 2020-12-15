@@ -4,10 +4,18 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
-import { Field, Button, Card } from "../../components/index";
+import { Field, Button, Card, Dropdown } from "../../components/index";
 import { getNewValidation, handleActionSearch } from "../LandingPage/utils";
 import { fetchMusic } from "./utils";
 import { StyledMusicPage, ResultWrapper, SearchWrapper, PaginationWrapper, Circle } from "./style";
+
+const initialSeachData = {
+  count: 0,
+  next: null,
+  previous: null,
+  facets: {},
+  results: [],
+};
 
 const useStyles = makeStyles(() => ({
   ul: {
@@ -26,25 +34,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MusicPage = ({ search }) => {
-  const [searchData, setSearchData] = useState({});
+const MusicPage = ({ search, filter }) => {
+  const [searchData, setSearchData] = useState(initialSeachData);
   const [page, setPage] = useState(1);
   const [pageOffset, setPageOffset] = useState(0);
   const [newSearch, setNewSearch] = useState("");
+  const [newFilter, setNewFilter] = useState(filter);
   const [validation, setValidation] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
     async function getSearchResult() {
-      const data = await fetchMusic(search, pageOffset, dispatch);
-      const replacedSearch = search.replace("%25", " ");
+      const data = await fetchMusic(search, filter, pageOffset, dispatch);
+      const replacedSearch = search.replace(/%25/g, " ");
 
       setSearchData(data);
       setNewSearch(replacedSearch);
     }
     getSearchResult();
-  }, [dispatch, search, pageOffset]);
+  }, [dispatch, search, filter, pageOffset]);
 
   const handlePageChange = (event, value) => {
     const newPageOffset = value * 10 - 10;
@@ -61,10 +70,14 @@ const MusicPage = ({ search }) => {
     setNewSearch(value);
   };
 
+  const handleFilterChange = (event) => {
+    setNewFilter(event.target.value);
+  };
+
   const handleSearch = () => {
     const newValidation = getNewValidation(newSearch);
     if (!newValidation) {
-      handleActionSearch(newSearch);
+      handleActionSearch(newSearch, newFilter);
     }
 
     setValidation(newValidation);
@@ -87,12 +100,13 @@ const MusicPage = ({ search }) => {
             error={!!validation}
             size="small"
           />
+          <Dropdown filter={newFilter} handleChange={handleFilterChange} />
           <Button onClick={handleSearch}>
             <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
             Search
           </Button>
         </SearchWrapper>
-        {searchData.results ? (
+        {searchData.results.length ? (
           searchData.results.map((el, idx) => {
             return (
               <Card

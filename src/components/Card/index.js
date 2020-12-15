@@ -2,7 +2,6 @@ import React from "react";
 import { StyledCard, DetailWrapper, ExplicitWrapper } from "./style";
 
 const Card = ({ id, title, artists, year, duration, explicit }) => {
-  console.log("🚀 ~ file: index.js ~ line 5 ~ Card ~ explicit", explicit);
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -19,7 +18,7 @@ const Card = ({ id, title, artists, year, duration, explicit }) => {
       </p>
       <DetailWrapper>
         {year} • {millisToMinutesAndSeconds(duration)}{" "}
-        {explicit ? (
+        {explicit.includes("1") ? (
           <>
             • <ExplicitWrapper>Explicit</ExplicitWrapper>
           </>

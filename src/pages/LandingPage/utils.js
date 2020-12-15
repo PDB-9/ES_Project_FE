@@ -9,7 +9,7 @@ export const getNewValidation = (search) => {
   return newValidation;
 };
 
-export const handleActionSearch = (search) => {
+export const handleActionSearch = (search, filter) => {
   const replacedSearch = search.replace(/\s/g, "%25");
-  navigate(`/search/${replacedSearch}`);
+  navigate(`/search/${replacedSearch}/${filter}`);
 };
