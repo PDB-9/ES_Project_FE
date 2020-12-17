@@ -123,14 +123,18 @@ const MusicPage = ({ search, filter }) => {
         ) : (
           <p className="no-results">No Results found</p>
         )}
-        <PaginationWrapper>
-          <Pagination
-            count={Math.ceil(searchData.count / 10)}
-            page={page}
-            onChange={handlePageChange}
-            classes={{ ul: classes.ul }}
-          />
-        </PaginationWrapper>
+        {searchData.results.length ? (
+          <PaginationWrapper>
+            <Pagination
+              count={Math.ceil(searchData.count / 10)}
+              page={page}
+              onChange={handlePageChange}
+              classes={{ ul: classes.ul }}
+            />
+          </PaginationWrapper>
+        ) : (
+          <div />
+        )}
       </ResultWrapper>
       <Circle />
     </StyledMusicPage>
