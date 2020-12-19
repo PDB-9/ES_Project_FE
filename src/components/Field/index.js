@@ -12,6 +12,7 @@ const Field = ({ label, value, onChange, error, size }) => {
         error={error}
         size={size}
         className="field"
+        required={label.includes("Title / Artist") && true}
       />
     </StyledField>
   );

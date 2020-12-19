@@ -6,24 +6,40 @@ const base_url = "https://api-spotipy.herokuapp.com/spotify/";
 const filterMapping = {
   title: "name",
   artist: "artists",
-  year: "year",
 };
 
-export const fetchMusic = async (search, filter, pageOffset, dispatch) => {
+export const fetchMusic = async (
+  search,
+  filter,
+  pageOffset,
+  explicit,
+  yearFrom,
+  yearTo,
+  dispatch
+) => {
   let api_spotipy;
   if (filter.includes("all")) {
     if (pageOffset) {
-      api_spotipy = `${base_url}?offset=${pageOffset}&search=${search}`;
+      api_spotipy = `${base_url}?search=${search}&offset=${pageOffset}`;
     } else {
       api_spotipy = `${base_url}?search=${search}`;
     }
   } else {
     if (pageOffset) {
-      api_spotipy = `${base_url}?${filterMapping[filter]}=${search}&limit=10&offset=${pageOffset}`;
+      api_spotipy = `${base_url}?search=${filterMapping[filter]}:${search}&limit=10&offset=${pageOffset}`;
     } else {
-      api_spotipy = `${base_url}?${filterMapping[filter]}=${search}`;
+      api_spotipy = `${base_url}?search=${filterMapping[filter]}:${search}`;
     }
   }
+
+  if (["1", "0"].includes(explicit)) {
+    api_spotipy = api_spotipy + `&explicit=${explicit}`;
+  }
+
+  if (yearFrom || yearTo) {
+    api_spotipy = api_spotipy + `&year__range=${yearFrom}__${yearTo}`;
+  }
+  console.log("🚀 ~ file: utils.js ~ line 41 ~ api_spotipy", api_spotipy);
 
   dispatch(setIsLoading(true));
   try {

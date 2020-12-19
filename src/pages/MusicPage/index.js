@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "hookrouter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
+import { getPlaylist } from "../../selectors/global";
+import { USER_PLAYLIST } from "../../constants/globalConstants";
+import { setPlaylist } from "../../actions/globalActions";
 import { Field, Button, Card, Dropdown } from "../../components/index";
 import { getNewValidation, handleActionSearch } from "../LandingPage/utils";
 import { fetchMusic } from "./utils";
-import { StyledMusicPage, ResultWrapper, SearchWrapper, PaginationWrapper, Circle } from "./style";
+import {
+  StyledMusicPage,
+  TitleWrapper,
+  ResultWrapper,
+  SearchWrapper,
+  PlaylistWrapper,
+  TopFieldWrapper,
+  BottomFieldWrapper,
+  PaginationWrapper,
+  Circle,
+} from "./style";
 
 const initialSeachData = {
   count: 0,
@@ -34,26 +47,56 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const MusicPage = ({ search, filter }) => {
+const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }) => {
   const [searchData, setSearchData] = useState(initialSeachData);
   const [page, setPage] = useState(1);
   const [pageOffset, setPageOffset] = useState(0);
   const [newSearch, setNewSearch] = useState("");
   const [newFilter, setNewFilter] = useState(filter);
+  const [newYearFrom, setNewYearFrom] = useState("");
+  const [newYearTo, setNewYearTo] = useState("");
+  const [newExplicit, setNewExplicit] = useState("all");
   const [validation, setValidation] = useState("");
+  const [yearFromValid, setYearFromValid] = useState("");
+  const [yearToValid, setYearToValid] = useState("");
+  const playlist = useSelector((state) => getPlaylist(state));
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    async function getSearchResult() {
-      const data = await fetchMusic(search, filter, pageOffset, dispatch);
+    const localPlaylist = getLocalStorageValue(USER_PLAYLIST);
+    if (localPlaylist) {
+      dispatch(setPlaylist(localPlaylist));
+    }
+    // const lagu = { name: "the climb", artist: "miley cyrus" };
+    // localStorage.setItem(USER_PLAYLIST, JSON.stringify(lagu));
+    // dispatch(setPlaylist(lagu));
+
+    const getSearchResult = async () => {
+      const data = await fetchMusic(
+        search,
+        filter,
+        pageOffset,
+        explicit,
+        yearFrom,
+        yearTo,
+        dispatch
+      );
       const replacedSearch = search.replace(/%25/g, " ");
 
       setSearchData(data);
       setNewSearch(replacedSearch);
-    }
+    };
     getSearchResult();
-  }, [dispatch, search, filter, pageOffset]);
+  }, [dispatch, search, filter, explicit, yearFrom, yearTo, pageOffset]);
+
+  //get data playlist from local storage
+  const getLocalStorageValue = (name) => {
+    const getLocalPlaylist = localStorage.getItem(name);
+    if (getLocalPlaylist) {
+      return JSON.parse(getLocalPlaylist);
+    } else return null;
+  };
 
   const handlePageChange = (event, value) => {
     const newPageOffset = value * 10 - 10;
@@ -64,77 +107,124 @@ const MusicPage = ({ search, filter }) => {
     setPageOffset(newPageOffset);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, label) => {
     const value = e.target.value;
 
-    setNewSearch(value);
+    if (label.includes("Title / Artist")) {
+      setNewSearch(value);
+    } else if (label.includes("Year From")) {
+      setNewYearFrom(value);
+    } else {
+      setNewYearTo(value);
+    }
   };
 
-  const handleFilterChange = (event) => {
-    setNewFilter(event.target.value);
+  const handleFilterChange = (event, label) => {
+    if (label.includes("Filter")) {
+      setNewFilter(event.target.value);
+    } else {
+      setNewExplicit(event.target.value);
+    }
   };
 
   const handleSearch = () => {
+    let newYearValidation;
     const newValidation = getNewValidation(newSearch);
-    if (!newValidation) {
-      handleActionSearch(newSearch, newFilter);
+    if (newYearFrom || newYearTo) {
+      newYearValidation = getNewValidation(newYearFrom) || getNewValidation(newYearTo);
+    }
+    if (!newValidation && !newYearValidation) {
+      handleActionSearch(newSearch, newFilter, newExplicit, newYearFrom, newYearTo);
     }
 
     setValidation(newValidation);
+    setYearFromValid(newYearValidation);
+    setYearToValid(newYearValidation);
     setPage(1);
     setPageOffset(0);
   };
 
   return (
     <StyledMusicPage>
-      <ResultWrapper>
+      <TitleWrapper>
         <div className="brand" onClick={() => navigate(`/`)}>
           Spoti.py
         </div>
         <h1>Search Results</h1>
+      </TitleWrapper>
+      <ResultWrapper>
         <SearchWrapper>
-          <Field
-            label="Title / Artist / Year"
-            value={newSearch}
-            onChange={(e) => handleChange(e)}
-            error={!!validation}
-            size="small"
-          />
-          <Dropdown filter={newFilter} handleChange={handleFilterChange} />
-          <Button onClick={handleSearch}>
-            <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
-            Search
-          </Button>
-        </SearchWrapper>
-        {searchData.results.length ? (
-          searchData.results.map((el, idx) => {
-            return (
-              <Card
-                key={idx}
-                id={el.id}
-                title={el.name}
-                artists={el.artists.join(", ")}
-                year={el.year}
-                duration={el.duration_ms}
-                explicit={el.explicit}
-              />
-            );
-          })
-        ) : (
-          <p className="no-results">No Results found</p>
-        )}
-        {searchData.results.length ? (
-          <PaginationWrapper>
-            <Pagination
-              count={Math.ceil(searchData.count / 10)}
-              page={page}
-              onChange={handlePageChange}
-              classes={{ ul: classes.ul }}
+          <TopFieldWrapper>
+            <Field
+              label="Title / Artist"
+              value={newSearch}
+              onChange={(e) => handleChange(e, "Title / Artist")}
+              error={!!validation}
+              size="small"
             />
-          </PaginationWrapper>
-        ) : (
-          <div />
-        )}
+            <Dropdown
+              label="Filter"
+              filter={newFilter}
+              handleChange={(e) => handleFilterChange(e, "Filter")}
+            />
+          </TopFieldWrapper>
+          <BottomFieldWrapper>
+            <Field
+              label="Year From"
+              value={newYearFrom}
+              onChange={(e) => handleChange(e, "Year From")}
+              error={!!yearFromValid}
+              size="small"
+            />
+            <Field
+              label="Year To"
+              value={newYearTo}
+              onChange={(e) => handleChange(e, "Year To")}
+              error={!!yearToValid}
+              size="small"
+            />
+            <Dropdown
+              label="Explicit"
+              filter={newExplicit}
+              handleChange={(e) => handleFilterChange(e, "Explicit")}
+              style={{ marginRight: "0.7rem", width: "100%" }}
+            />
+            <Button onClick={handleSearch}>
+              <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
+              Search
+            </Button>
+          </BottomFieldWrapper>
+          {searchData.results.length ? (
+            searchData.results.map((el, idx) => {
+              return (
+                <Card
+                  key={idx}
+                  id={el.id}
+                  title={el.name}
+                  artists={el.artists.join(", ")}
+                  year={el.year}
+                  duration={el.duration_ms}
+                  explicit={el.explicit}
+                />
+              );
+            })
+          ) : (
+            <p className="no-results">No Results found</p>
+          )}
+          {searchData.results.length ? (
+            <PaginationWrapper>
+              <Pagination
+                count={Math.ceil(searchData.count / 10)}
+                page={page}
+                onChange={handlePageChange}
+                classes={{ ul: classes.ul }}
+              />
+            </PaginationWrapper>
+          ) : (
+            <div />
+          )}
+        </SearchWrapper>
+        <PlaylistWrapper />
       </ResultWrapper>
       <Circle />
     </StyledMusicPage>

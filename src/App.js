@@ -7,7 +7,7 @@ import { getIsLoading } from "./selectors/global";
 import { StyledApp } from "./style";
 
 function App() {
-  useRedirect("/", "/search/");
+  useRedirect("/", "/search");
   const routing = useRoutes(routes);
   const isLoading = useSelector((state) => getIsLoading(state));
 

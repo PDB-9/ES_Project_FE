@@ -9,7 +9,13 @@ export const getNewValidation = (search) => {
   return newValidation;
 };
 
-export const handleActionSearch = (search, filter) => {
+export const handleActionSearch = (search, filter, explicit, yearFrom, yearTo) => {
   const replacedSearch = search.replace(/\s/g, "%25");
-  navigate(`/search/${replacedSearch}/${filter}`);
+  if (yearFrom || yearTo) {
+    navigate(`/search/${replacedSearch}/${filter}/${explicit}/${yearFrom}/${yearTo}`);
+  } else if (explicit) {
+    navigate(`/search/${replacedSearch}/${filter}/${explicit}`);
+  } else {
+    navigate(`/search/${replacedSearch}/${filter}`);
+  }
 };

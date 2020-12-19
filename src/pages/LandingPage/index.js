@@ -37,7 +37,7 @@ const LandingPage = () => {
         <p>Your incredibly fast search to discover songs in no time.</p>
         <FieldWrapper>
           <Field
-            label="Title / Artist / Year"
+            label="Title / Artist"
             value={search}
             onChange={(e) => handleChange(e)}
             error={!!validation}

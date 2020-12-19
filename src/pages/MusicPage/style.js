@@ -4,13 +4,14 @@ export const StyledMusicPage = styled.div`
   width: 100vw;
   min-height: 100vh;
   background-image: linear-gradient(to bottom right, #000428, #004e92);
-  display: flex;
-  flex-direction: column;
 `;
 
-export const ResultWrapper = styled.div`
-  padding: 3rem;
-  z-index: 1;
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+  padding-left: 3rem;
+
   h1 {
     margin-top: 0rem;
     color: #ffffff;
@@ -26,6 +27,14 @@ export const ResultWrapper = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+export const ResultWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-left: 3rem;
+  padding-bottom: 3rem;
+  z-index: 1;
 
   .no-results {
     color: #ffffff;
@@ -34,6 +43,23 @@ export const ResultWrapper = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PlaylistWrapper = styled.div``;
+
+export const TopFieldWrapper = styled.div`
+  width: 53rem;
+  height: 3.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+`;
+
+export const BottomFieldWrapper = styled.div`
   width: 53rem;
   height: 3.7rem;
   display: flex;
