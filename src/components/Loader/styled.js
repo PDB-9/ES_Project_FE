@@ -9,4 +9,5 @@ export const StyledLoader = styled.div`
   align-items: center;
   background: #fafafa;
   opacity: 0.5;
+  z-index: 999;
 `;
