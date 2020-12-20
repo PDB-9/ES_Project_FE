@@ -43,12 +43,16 @@ export const ResultWrapper = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 55%;
+  width: 56rem;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 `;
 
-export const PlaylistWrapper = styled.div``;
+export const PlaylistWrapper = styled.div`
+  width: 30rem;
+  z-index: 1;
+`;
 
 export const TopFieldWrapper = styled.div`
   width: 53rem;

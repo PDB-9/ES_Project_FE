@@ -1,7 +1,7 @@
 const initialState = {
   isLoading: false,
   route: "/",
-  playlist: {},
+  playlist: [],
 };
 
 export default function globalReducer(state, action) {

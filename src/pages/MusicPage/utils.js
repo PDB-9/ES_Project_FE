@@ -39,7 +39,6 @@ export const fetchMusic = async (
   if (yearFrom || yearTo) {
     api_spotipy = api_spotipy + `&year__range=${yearFrom}__${yearTo}`;
   }
-  console.log("🚀 ~ file: utils.js ~ line 41 ~ api_spotipy", api_spotipy);
 
   dispatch(setIsLoading(true));
   try {

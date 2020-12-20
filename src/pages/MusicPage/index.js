@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "hookrouter";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
-import { getPlaylist } from "../../selectors/global";
-import { USER_PLAYLIST } from "../../constants/globalConstants";
-import { setPlaylist } from "../../actions/globalActions";
-import { Field, Button, Card, Dropdown } from "../../components/index";
+import { Field, Button, Card, Dropdown, PlaylistCard } from "../../components/index";
 import { getNewValidation, handleActionSearch } from "../LandingPage/utils";
 import { fetchMusic } from "./utils";
 import {
@@ -59,19 +56,10 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
   const [validation, setValidation] = useState("");
   const [yearFromValid, setYearFromValid] = useState("");
   const [yearToValid, setYearToValid] = useState("");
-  const playlist = useSelector((state) => getPlaylist(state));
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    const localPlaylist = getLocalStorageValue(USER_PLAYLIST);
-    if (localPlaylist) {
-      dispatch(setPlaylist(localPlaylist));
-    }
-    // const lagu = { name: "the climb", artist: "miley cyrus" };
-    // localStorage.setItem(USER_PLAYLIST, JSON.stringify(lagu));
-    // dispatch(setPlaylist(lagu));
-
     const getSearchResult = async () => {
       const data = await fetchMusic(
         search,
@@ -89,14 +77,6 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
     };
     getSearchResult();
   }, [dispatch, search, filter, explicit, yearFrom, yearTo, pageOffset]);
-
-  //get data playlist from local storage
-  const getLocalStorageValue = (name) => {
-    const getLocalPlaylist = localStorage.getItem(name);
-    if (getLocalPlaylist) {
-      return JSON.parse(getLocalPlaylist);
-    } else return null;
-  };
 
   const handlePageChange = (event, value) => {
     const newPageOffset = value * 10 - 10;
@@ -189,7 +169,7 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
               handleChange={(e) => handleFilterChange(e, "Explicit")}
               style={{ marginRight: "0.7rem", width: "100%" }}
             />
-            <Button onClick={handleSearch}>
+            <Button onClick={handleSearch} style={{ height: "100%" }}>
               <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
               Search
             </Button>
@@ -224,7 +204,9 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
             <div />
           )}
         </SearchWrapper>
-        <PlaylistWrapper />
+        <PlaylistWrapper>
+          <PlaylistCard />
+        </PlaylistWrapper>
       </ResultWrapper>
       <Circle />
     </StyledMusicPage>

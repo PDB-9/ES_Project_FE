@@ -42,7 +42,7 @@ const LandingPage = () => {
             onChange={(e) => handleChange(e)}
             error={!!validation}
           />
-          <Button onClick={handleSearch}>
+          <Button onClick={handleSearch} style={{ height: "100%" }}>
             <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
             Search
           </Button>

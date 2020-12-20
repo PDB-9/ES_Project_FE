@@ -34,6 +34,11 @@ export const StyledCard = styled.div`
   }
 `;
 
+export const TitleTopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const DetailWrapper = styled.div`
   display: flex;
   align-items: center;
