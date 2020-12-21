@@ -45,5 +45,3 @@ export const DetailWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export const DeleteWrapper = styled.div``;

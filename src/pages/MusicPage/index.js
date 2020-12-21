@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
-import { Field, Button, Card, Dropdown, PlaylistCard } from "../../components/index";
+import { Field, Button, Card, Dropdown, PlaylistCard, TopSearch } from "../../components/index";
 import { getNewValidation, handleActionSearch } from "../LandingPage/utils";
-import { fetchMusic } from "./utils";
+import { fetchMusic, fetchTopSearch } from "./utils";
 import {
   StyledMusicPage,
   TitleWrapper,
@@ -56,6 +56,7 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
   const [validation, setValidation] = useState("");
   const [yearFromValid, setYearFromValid] = useState("");
   const [yearToValid, setYearToValid] = useState("");
+  const [topSearchData, setTopSearchData] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -75,7 +76,15 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
       setSearchData(data);
       setNewSearch(replacedSearch);
     };
+
+    const getTopSearchResult = async () => {
+      const data = await fetchTopSearch();
+
+      setTopSearchData(data);
+    };
+
     getSearchResult();
+    getTopSearchResult();
   }, [dispatch, search, filter, explicit, yearFrom, yearTo, pageOffset]);
 
   const handlePageChange = (event, value) => {
@@ -206,6 +215,7 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
         </SearchWrapper>
         <PlaylistWrapper>
           <PlaylistCard />
+          <TopSearch topSearchData={topSearchData} />
         </PlaylistWrapper>
       </ResultWrapper>
       <Circle />

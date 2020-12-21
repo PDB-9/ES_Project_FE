@@ -43,7 +43,7 @@ export const ResultWrapper = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 56rem;
+  width: 53rem;
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -55,7 +55,7 @@ export const PlaylistWrapper = styled.div`
 `;
 
 export const TopFieldWrapper = styled.div`
-  width: 53rem;
+  width: 50rem;
   height: 3.7rem;
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@ export const TopFieldWrapper = styled.div`
 `;
 
 export const BottomFieldWrapper = styled.div`
-  width: 53rem;
+  width: 50rem;
   height: 3.7rem;
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@ export const BottomFieldWrapper = styled.div`
 `;
 
 export const PaginationWrapper = styled.div`
-  width: 53rem;
+  width: 50rem;
   display: flex;
   justify-content: center;
 `;
