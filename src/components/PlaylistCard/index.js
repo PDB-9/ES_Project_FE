@@ -36,7 +36,7 @@ const PlaylistCard = () => {
   return (
     <StyledPlaylistCard>
       <h1>🎵 My Playlist</h1>
-      {playlist.length ? (
+      {playlist && playlist.length ? (
         playlist.map((el, idx) => {
           return (
             <div key={idx}>

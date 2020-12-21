@@ -5,7 +5,7 @@ const TopSearch = ({ topSearchData }) => {
   return (
     <StyledTopSearchCard>
       <h1>🔎 Search Trends</h1>
-      {topSearchData.length ? (
+      {topSearchData && topSearchData.length ? (
         topSearchData.map((el, idx) => {
           return (
             <TopSearchWrapper key={idx}>
