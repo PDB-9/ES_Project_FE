@@ -55,7 +55,7 @@ export const fetchMusic = async (
 
 export const fetchTopSearch = async () => {
   try {
-    const response = await axios.get("http://api-spotipy.herokuapp.com/log/get/");
+    const response = await axios.get("https://api-spotipy.herokuapp.com/log/get/");
     const data = response.data.search;
 
     return data;
