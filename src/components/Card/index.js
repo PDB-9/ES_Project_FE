@@ -74,12 +74,12 @@ const Card = ({
         )}
         {energy >= 0.5 && (
           <>
-            • <ChipWrapper color={"blue"}>Energetic</ChipWrapper>
+            • <ChipWrapper color={"hotpink"}>Energetic</ChipWrapper>
           </>
         )}
         {instrumentalness >= 0.5 && (
           <>
-            • <ChipWrapper color={"sandybrown"}>Instrumental</ChipWrapper>
+            • <ChipWrapper color={"blue"}>Instrumental</ChipWrapper>
           </>
         )}
         {valence >= 0.5 && (
