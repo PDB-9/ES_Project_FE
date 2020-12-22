@@ -34,7 +34,7 @@ yarn-error.log*
 
 # production
 /build
-
+/src/.idea
 # misc
 .DS_Store
 .env.local
