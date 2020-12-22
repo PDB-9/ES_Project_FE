@@ -1,7 +1,7 @@
 import axios from "axios";
 import { setIsLoading } from "../../actions/globalActions";
 
-const base_url = "http://api-spotipy.herokuapp.com/spotify/";
+const base_url = "https://api-spotipy.herokuapp.com/spotify/";
 
 const filterMapping = {
   title: "name",
@@ -55,7 +55,7 @@ export const fetchMusic = async (
 
 export const fetchTopSearch = async () => {
   try {
-    const response = await axios.get("http://api-spotipy.herokuapp.com/log/get/");
+    const response = await axios.get("https://api-spotipy.herokuapp.com/log/get/");
     const data = response.data.search;
 
     return data;
