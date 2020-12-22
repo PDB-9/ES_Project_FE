@@ -32,6 +32,11 @@ export const StyledCard = styled.div`
   .by {
     color: gray;
   }
+
+  .date {
+    margin-top: 1rem;
+    text-align: right;
+  }
 `;
 
 export const TitleTopWrapper = styled.div`
@@ -46,10 +51,11 @@ export const DetailWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const ExplicitWrapper = styled.div`
-  border: 1px solid red;
-  color: red;
+export const ChipWrapper = styled.div`
+  border: 1px solid ${({ color }) => (color ? color : "black")};
+  color: ${({ color }) => (color ? color : "black")};
   border-radius: 4px;
   padding: 2px 4px;
-  margin-left: 0.5rem;
+  margin-left: 0.45rem;
+  margin-right: 0.45rem;
 `;

@@ -194,6 +194,13 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
                   year={el.year}
                   duration={el.duration_ms}
                   explicit={el.explicit}
+                  acousticness={el.acousticness}
+                  danceability={el.danceability}
+                  energy={el.energy}
+                  instrumentalness={el.instrumentalness}
+                  valence={el.valence}
+                  liveness={el.liveness}
+                  release_date={el.release_date}
                 />
               );
             })
