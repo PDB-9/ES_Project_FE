@@ -6,6 +6,7 @@ WORKDIR /frontend
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /frontend/node_modules/.bin:$PATH
+ENV REACT_APP_API_KEY=$REACT_APP_API_KEY
 
 # install app dependencies
 COPY package.json ./

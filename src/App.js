@@ -6,6 +6,7 @@ import { Loader } from "./components/index";
 import { getIsLoading } from "./selectors/global";
 import { StyledApp } from "./style";
 
+
 function App() {
   useRedirect("/", "/search");
   const routing = useRoutes(routes);
