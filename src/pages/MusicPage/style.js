@@ -49,11 +49,6 @@ export const SearchWrapper = styled.div`
   z-index: 1;
 `;
 
-export const PlaylistWrapper = styled.div`
-  width: 30rem;
-  z-index: 1;
-`;
-
 export const TopFieldWrapper = styled.div`
   width: 50rem;
   height: 3.7rem;
@@ -70,6 +65,21 @@ export const BottomFieldWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+`;
+
+export const PlaylistWrapper = styled.div`
+  width: 30rem;
+  z-index: 1;
+`;
+
+export const GenreWrapper = styled.div`
+  padding: 1rem 2.5rem 2.5rem 2.5rem;
+  background-color: #badfff;
+  border-radius: 28px;
+
+  h1 {
+    margin-bottom: 0.2rem;
+  }
 `;
 
 export const PaginationWrapper = styled.div`

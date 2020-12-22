@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { navigate } from "hookrouter";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
 import { Field, Button, Card, Dropdown, PlaylistCard, TopSearch } from "../../components/index";
@@ -12,9 +13,10 @@ import {
   TitleWrapper,
   ResultWrapper,
   SearchWrapper,
-  PlaylistWrapper,
   TopFieldWrapper,
   BottomFieldWrapper,
+  PlaylistWrapper,
+  GenreWrapper,
   PaginationWrapper,
   Circle,
 } from "./style";
@@ -57,6 +59,13 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
   const [yearFromValid, setYearFromValid] = useState("");
   const [yearToValid, setYearToValid] = useState("");
   const [topSearchData, setTopSearchData] = useState([]);
+  const [acoustic, setAcoustic] = useState(false);
+  const [danceable, setDanceable] = useState(false);
+  const [energetic, setEnergetic] = useState(false);
+  const [instrumental, setInstrumental] = useState(false);
+  const [happy, setHappy] = useState(false);
+  const [sad, setSad] = useState(false);
+  const [live, setLive] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -69,6 +78,13 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
         explicit,
         yearFrom,
         yearTo,
+        acoustic,
+        danceable,
+        energetic,
+        instrumental,
+        happy,
+        sad,
+        live,
         dispatch
       );
       const replacedSearch = search.replace(/%25/g, " ");
@@ -85,7 +101,22 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
 
     getSearchResult();
     getTopSearchResult();
-  }, [dispatch, search, filter, explicit, yearFrom, yearTo, pageOffset]);
+  }, [
+    dispatch,
+    search,
+    filter,
+    explicit,
+    yearFrom,
+    yearTo,
+    pageOffset,
+    acoustic,
+    danceable,
+    energetic,
+    instrumental,
+    happy,
+    sad,
+    live,
+  ]);
 
   const handlePageChange = (event, value) => {
     const newPageOffset = value * 10 - 10;
@@ -113,6 +144,24 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
       setNewFilter(event.target.value);
     } else {
       setNewExplicit(event.target.value);
+    }
+  };
+
+  const handleCheckboxChange = (event, label) => {
+    if (label.includes("Acoustic")) {
+      setAcoustic(event.target.checked);
+    } else if (label.includes("Danceable")) {
+      setDanceable(event.target.checked);
+    } else if (label.includes("Energetic")) {
+      setEnergetic(event.target.checked);
+    } else if (label.includes("Instrumental")) {
+      setInstrumental(event.target.checked);
+    } else if (label.includes("Happy")) {
+      setHappy(event.target.checked);
+    } else if (label.includes("Sad")) {
+      setSad(event.target.checked);
+    } else {
+      setLive(event.target.checked);
     }
   };
 
@@ -150,20 +199,15 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
               onChange={(e) => handleChange(e, "Title / Artist")}
               error={!!validation}
               size="small"
+              style={{ marginRight: "0.7rem" }}
             />
-            <Dropdown
-              label="Filter"
-              filter={newFilter}
-              handleChange={(e) => handleFilterChange(e, "Filter")}
-            />
-          </TopFieldWrapper>
-          <BottomFieldWrapper>
             <Field
               label="Year From"
               value={newYearFrom}
               onChange={(e) => handleChange(e, "Year From")}
               error={!!yearFromValid}
               size="small"
+              style={{ width: "30%", marginRight: "0.7rem" }}
             />
             <Field
               label="Year To"
@@ -171,12 +215,21 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
               onChange={(e) => handleChange(e, "Year To")}
               error={!!yearToValid}
               size="small"
+              style={{ width: "30%" }}
+            />
+          </TopFieldWrapper>
+          <BottomFieldWrapper>
+            <Dropdown
+              label="Filter"
+              filter={newFilter}
+              handleChange={(e) => handleFilterChange(e, "Filter")}
+              style={{ marginRight: "0.7rem" }}
             />
             <Dropdown
               label="Explicit"
               filter={newExplicit}
               handleChange={(e) => handleFilterChange(e, "Explicit")}
-              style={{ marginRight: "0.7rem", width: "100%" }}
+              style={{ marginRight: "0.7rem" }}
             />
             <Button onClick={handleSearch} style={{ height: "100%" }}>
               <SearchIcon style={{ marginRight: "0.2rem", fontSize: "2rem" }} />
@@ -221,6 +274,79 @@ const MusicPage = ({ search, filter, explicit = "", yearFrom = "", yearTo = "" }
           )}
         </SearchWrapper>
         <PlaylistWrapper>
+          <GenreWrapper>
+            <h1>🎵 Genre</h1>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={acoustic}
+                  onChange={(e) => handleCheckboxChange(e, "Acoustic")}
+                  color="primary"
+                />
+              }
+              label={"Acoustic"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={danceable}
+                  onChange={(e) => handleCheckboxChange(e, "Danceable")}
+                  color="primary"
+                />
+              }
+              label={"Danceable"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={energetic}
+                  onChange={(e) => handleCheckboxChange(e, "Energetic")}
+                  color="primary"
+                />
+              }
+              label={"Energetic"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={instrumental}
+                  onChange={(e) => handleCheckboxChange(e, "Instrumental")}
+                  color="primary"
+                />
+              }
+              label={"Instrumental"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={happy}
+                  onChange={(e) => handleCheckboxChange(e, "Happy")}
+                  color="primary"
+                />
+              }
+              label={"Happy"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={sad}
+                  onChange={(e) => handleCheckboxChange(e, "Sad")}
+                  color="primary"
+                />
+              }
+              label={"Sad"}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={live}
+                  onChange={(e) => handleCheckboxChange(e, "Live")}
+                  color="primary"
+                />
+              }
+              label={"Live"}
+            />
+          </GenreWrapper>
           <PlaylistCard />
           <TopSearch topSearchData={topSearchData} />
         </PlaylistWrapper>

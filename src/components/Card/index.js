@@ -22,7 +22,6 @@ const Card = ({
   liveness,
   release_date,
 }) => {
-  console.log("🚀 ~ file: index.js ~ line 24 ~ acousticness", acousticness);
   const playlist = useSelector((state) => getPlaylist(state));
   const dispatch = useDispatch();
 
@@ -93,7 +92,7 @@ const Card = ({
             • <ChipWrapper color={"gray"}>Sad</ChipWrapper>
           </>
         )}
-        {liveness >= 0.8 && (
+        {liveness > 0.8 && (
           <>
             • <ChipWrapper color={"orange"}>Live</ChipWrapper>
           </>

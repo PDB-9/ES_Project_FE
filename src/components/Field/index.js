@@ -2,9 +2,9 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import { StyledField } from "./style";
 
-const Field = ({ label, value, onChange, error, size }) => {
+const Field = ({ label, value, onChange, error, size, ...props }) => {
   return (
-    <StyledField>
+    <StyledField {...props}>
       <TextField
         label={label}
         value={value}

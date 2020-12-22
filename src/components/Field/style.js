@@ -8,7 +8,6 @@ export const StyledField = styled.div`
   padding: 0.5rem 2rem;
   background-color: #ffffff;
   border-radius: 100px;
-  margin-right: 0.7rem;
 
   .field {
     width: 100%;

@@ -4,6 +4,7 @@ export const StyledPlaylistCard = styled.div`
   padding: 1rem 2.5rem 2.5rem 2.5rem;
   background-color: #badfff;
   border-radius: 28px;
+  margin-top: 1rem;
 
   h1 {
     margin-bottom: 0;

@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import { StyledDropdown } from "./style";
 
-const Field = ({ label, filter, handleChange, ...props }) => {
+const Dropdown = ({ label, filter, handleChange, ...props }) => {
   return (
     <StyledDropdown {...props}>
       <FormControl className="dropdown">
@@ -25,4 +25,4 @@ const Field = ({ label, filter, handleChange, ...props }) => {
   );
 };
 
-export default Field;
+export default Dropdown;
