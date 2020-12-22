@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
-require('dotenv').config()
+
 
 ReactDOM.render(
   <Provider store={store}>
