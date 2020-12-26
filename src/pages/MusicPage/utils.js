@@ -8,6 +8,14 @@ const filterMapping = {
   artist: "artists",
 };
 
+export const initialSeachData = {
+  count: 0,
+  next: null,
+  previous: null,
+  facets: {},
+  results: [],
+};
+
 export const fetchMusic = async (
   search,
   filter,
@@ -85,6 +93,8 @@ export const fetchMusic = async (
   } catch (err) {
     dispatch(setIsLoading(false));
     console.log(err);
+
+    return initialSeachData;
   }
 };
 
@@ -96,5 +106,7 @@ export const fetchTopSearch = async () => {
     return data;
   } catch (err) {
     console.log(err);
+
+    return [];
   }
 };

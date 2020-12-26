@@ -7,7 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Pagination from "@material-ui/lab/Pagination";
 import { Field, Button, Card, Dropdown, PlaylistCard, TopSearch } from "../../components/index";
 import { getNewValidation, handleActionSearch } from "../LandingPage/utils";
-import { fetchMusic, fetchTopSearch } from "./utils";
+import { initialSeachData, fetchMusic, fetchTopSearch } from "./utils";
 import {
   StyledMusicPage,
   TitleWrapper,
@@ -20,14 +20,6 @@ import {
   PaginationWrapper,
   Circle,
 } from "./style";
-
-const initialSeachData = {
-  count: 0,
-  next: null,
-  previous: null,
-  facets: {},
-  results: [],
-};
 
 const useStyles = makeStyles(() => ({
   ul: {
